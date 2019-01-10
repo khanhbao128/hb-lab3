@@ -1,76 +1,61 @@
-"""A prefix-notation calculator."""
+"""A prefix-notation calculator.
 
+Using the arithmetic.py file from Calculator Part 1, create the
+calculator program yourself in this file.
+"""
 
 from arithmetic import *
 
 
 while True:
-    user_input = input("> ")
-    tokens = user_input.split(" ")
+    tokens_string = (input (" Please enter operator followed by numbers \n"))
+    tokens = tokens_string.split()
+    if tokens[0] == 'q':
+        break
+    if len(tokens) < 2:
+        print("We need at least one number")
+        continue
 
-    if "q" in tokens:
-        print("You will exit.")
+    if len(tokens) == 2:
+        tokens.append(0)
+
+    if tokens[0] == '+':
+        result =  arithmetic.add(int(tokens[1]), int(tokens[2]))
+        print(result)
         break
 
-    elif len(tokens) < 2:
-        print("Not enough inputs.")
-        continue
+    elif tokens[0] == '-':
+        result = arithmetic.subtract(int(tokens[1]), int(tokens[2]))
+        print(result)
+        break
 
-    operator = tokens[0]
-    num1 = tokens[1]
+    elif tokens[0] == '*':
+        result = arithmetic.multiply(int(tokens[1]), int(tokens[2]))
+        print (result)
+        break
 
-    if len(tokens) < 3:
-        num2 = "0"
+    elif tokens[0] == '/':
+        result = divide(int(tokens[1]), int(tokens[2]))
+        print(result)
+        break
 
-    else:
-        num2 = tokens[2]
+    elif tokens[0] == 'square':
+        result = square(int(tokens[1]))
+        print(result)
+        break
 
-    if len(tokens) > 3:
-        num3 = tokens[3]
+    elif tokens[0] == 'cube':
+        result = cube(int(tokens[1]))
+        print(result)
+        break
 
-    # A place to store the return value of the math function we call,
-    # to give us one clear place where that result is printed.
-    result = None
+    elif tokens[0] == 'pow':
+        result = power(int(tokens[1]), int(tokens[2]))
+        print(result)
+        break
 
-    if not num1.isdigit() or not num2.isdigit():
-        print("Those aren't numbers!")
-        continue
 
-    # We have to cast each value we pass to an arithmetic function from a
-    # a string into a numeric type. If we use float across the board, all
-    # results will have decimal points, so let's do that for consistency.
 
-    elif operator == "+":
-        result = add(float(num1), float(num2))
 
-    elif operator == "-":
-        result = subtract(float(num1), float(num2))
 
-    elif operator == "*":
-        result = multiply(float(num1), float(num2))
 
-    elif operator == "/":
-        result = divide(float(num1), float(num2))
-
-    elif operator == "square":
-        result = square(float(num1))
-
-    elif operator == "cube":
-        result = cube(float(num1))
-
-    elif operator == "pow":
-        result = power(float(num1), float(num2))
-
-    elif operator == "mod":
-        result = mod(float(num1), float(num2))
-
-    elif operator == "x+":
-        result = add_mult(float(num1), float(num2), float(num3))
-
-    elif operator == "cubes+":
-        result = add_cubes(float(num1), float(num2))
-
-    else:
-        result = "Please enter an operator followed by two integers."
-
-    print(result)
